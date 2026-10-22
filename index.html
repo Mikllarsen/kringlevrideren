@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kringlevrideren – Bageri i Kastrup</title>
 <meta name="description" content="Kringlevrideren – bageri i Skottegårdens Butikscenter, Kastrup. Brød, rundstykker, kager og kaffe.">
+<meta name="theme-color" content="#7a3b12">
+<meta property="og:title" content="Kringlevrideren – Bageri i Kastrup">
+<meta property="og:description" content="Brød, rundstykker, kager og kaffe i Skottegårdens Butikscenter. Åbent alle dage kl. 06–16.">
+<meta property="og:image" content="img/butik.png">
+<meta property="og:locale" content="da_DK">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A5%A8%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Young+Serif&display=swap" rel="stylesheet">
 <style>
 :root{--crust:#7a3b12;--dough:#f6e7cc;--cream:#fff8ea;--ink:#2a160a;--glaze:#e8591a;--salt:#fff}
@@ -15,10 +22,14 @@ body{font:17px/1.6 "Bricolage Grotesque",sans-serif;color:var(--ink);background:
  background-image:radial-gradient(circle at 1px 1px,#e9d2a8 1px,transparent 0);background-size:22px 22px}
 h1,h2,h3{font-family:"Young Serif",serif;font-weight:400;line-height:1.05}
 a{color:inherit}
+:focus-visible{outline:3px solid var(--glaze);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--salt);padding:8px 14px;border-radius:8px;z-index:9}
+.skip:focus{left:8px}
 .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;align-items:center;padding:20px 0}
+nav div{display:flex;flex-wrap:wrap;gap:4px 20px}
 nav b{font:800 1.2rem "Bricolage Grotesque";letter-spacing:-.02em}
-nav a{margin-left:20px;text-decoration:none;font-weight:700}
+nav a{text-decoration:none;font-weight:700}
 nav a:hover{color:var(--glaze)}
 .hero{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;padding:40px 0 80px}
 .hero h1{font-size:clamp(3rem,9vw,6.5rem);color:var(--crust)}
@@ -26,10 +37,14 @@ nav a:hover{color:var(--glaze)}
 .hero p{max-width:34ch;margin:20px 0 28px;font-size:1.2rem}
 .btn{display:inline-block;background:var(--glaze);color:var(--salt);padding:14px 26px;border-radius:99px;font-weight:800;text-decoration:none;transition:transform .2s}
 .btn:hover{transform:rotate(-3deg) scale(1.05)}
+.btn.alt{background:none;color:var(--crust);box-shadow:inset 0 0 0 2px var(--crust);margin-left:8px}
+.status{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:.95rem;background:var(--dough);border:2px solid var(--crust);border-radius:99px;padding:4px 14px 4px 10px;margin-bottom:18px}
+.status i{width:10px;height:10px;border-radius:50%;background:#9a8a7a}
+.status.open i{background:#2f9e44;box-shadow:0 0 0 4px #2f9e4433}
 .pretzel{width:100%;max-width:380px;justify-self:center;animation:spin 24s linear infinite;filter:drop-shadow(0 18px 18px #7a3b1255)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .rise>*{opacity:0;transform:translateY(24px);animation:up .8s forwards}
-.rise>:nth-child(2){animation-delay:.15s}.rise>:nth-child(3){animation-delay:.3s}.rise>:nth-child(4){animation-delay:.45s}
+.rise>:nth-child(2){animation-delay:.15s}.rise>:nth-child(3){animation-delay:.3s}.rise>:nth-child(4){animation-delay:.45s}.rise>:nth-child(5){animation-delay:.6s}
 @keyframes up{to{opacity:1;transform:none}}
 .strip{background:var(--crust);color:var(--dough);overflow:hidden;white-space:nowrap;padding:12px 0;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .strip span{display:inline-block;animation:slide 25s linear infinite}
@@ -40,30 +55,36 @@ h2{font-size:clamp(2rem,5vw,3.2rem);color:var(--crust);margin-bottom:28px}
 .card{background:var(--dough);border:2px solid var(--crust);border-radius:20px;padding:24px;box-shadow:6px 6px 0 var(--crust);transition:transform .2s}
 .card:hover{transform:translate(-3px,-3px)}
 .card h3{font-size:1.5rem;margin-bottom:8px}
+.card.today{background:var(--glaze);color:var(--salt);border-color:var(--ink);box-shadow:6px 6px 0 var(--ink)}
+.card.today h3::after{content:" · i dag";font-family:"Bricolage Grotesque";font-size:.9rem;font-weight:800}
+.reviews{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
 .info{display:grid;grid-template-columns:1fr 1.3fr;gap:32px}
 .info dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px}
 .info dt{font-weight:800}
 iframe{width:100%;height:340px;border:2px solid var(--crust);border-radius:20px;box-shadow:6px 6px 0 var(--crust)}
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border:2px solid var(--crust);border-radius:20px;box-shadow:6px 6px 0 var(--crust);transition:transform .2s}
+.gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.gallery img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border:2px solid var(--crust);border-radius:20px;box-shadow:6px 6px 0 var(--crust);transition:transform .2s}
 .gallery img:nth-child(odd){transform:rotate(-1.5deg)}.gallery img:nth-child(even){transform:rotate(1.5deg)}
 .gallery img:hover{transform:scale(1.04) rotate(0)}
 .meta{font-size:.95rem;font-weight:700;color:var(--crust);margin:18px 0 0}
 blockquote.card footer{background:none;padding:12px 0 0;text-align:left;color:var(--crust);font-weight:800}
 blockquote.card p{font-size:1.1rem}
 footer{background:var(--ink);color:var(--dough);padding:28px 0;text-align:center;font-size:.9rem}
-@media(max-width:760px){.hero,.info{grid-template-columns:1fr}.pretzel{max-width:240px;order:-1}nav a{margin-left:12px}}
+@media(max-width:860px){.gallery{grid-template-columns:repeat(2,1fr)}.gallery img:first-child{grid-column:span 2}}
+@media(max-width:760px){.hero,.info{grid-template-columns:1fr}.hero{padding:16px 0 56px}.pretzel{max-width:200px;order:-1}nav div{gap:4px 14px}section{padding:56px 0}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
+<a class="skip" href="#kringler">Spring til indhold</a>
 <div class="wrap">
- <nav><b>Kringlevrideren</b><div><a href="#kringler">Sortiment</a><a href="#tilbud">Tilbud</a><a href="#anmeldelser">Anmeldelser</a><a href="#find">Find os</a></div></nav>
+ <nav aria-label="Hovedmenu"><b>Kringlevrideren</b><div><a href="#kringler">Sortiment</a><a href="#tilbud">Tilbud</a><a href="#anmeldelser">Anmeldelser</a><a href="#find">Find os</a></div></nav>
  <header class="hero">
   <div class="rise">
+   <p class="status" id="status" hidden><i></i><span></span></p>
    <h1>Vrid den<br><em>rigtigt.</em></h1>
    <p>Bageriet i Skottegårdens Butikscenter – brød, rundstykker, kager og kaffe – åbent alle dage kl. 06–16.</p>
-   <a class="btn" href="#find">Kom forbi</a>
+   <div><a class="btn" href="#find">Kom forbi</a><a class="btn alt" href="tel:+4532502092">Ring 32 50 20 92</a></div>
    <p class="meta">★ 3,9 · 82 anmeldelser på Google · 1–100 kr. pr. person</p>
   </div>
   <!-- stiliseret kringle -->
@@ -88,9 +109,9 @@ footer{background:var(--ink);color:var(--dough);padding:28px 0;text-align:center
  <h2>Ugens tilbud</h2>
  <!-- Læst fra skilt ved indgangen; dag for jordbærtærten er uklar på skiltet -->
  <div class="cards">
-  <div class="card"><h3>Mandag</h3><p>Linser · <b>10 kr.</b> pr. stk.</p></div>
-  <div class="card"><h3>Tirsdag</h3><p>Studenterbrød · <b>6 kr.</b></p></div>
-  <div class="card"><h3>Onsdag</h3><p>Flødekager · <b>30 kr.</b></p></div>
+  <div class="card" data-day="1"><h3>Mandag</h3><p>Linser · <b>10 kr.</b> pr. stk.</p></div>
+  <div class="card" data-day="2"><h3>Tirsdag</h3><p>Studenterbrød · <b>6 kr.</b></p></div>
+  <div class="card" data-day="3"><h3>Onsdag</h3><p>Flødekager · <b>30 kr.</b></p></div>
   <div class="card"><h3>Jordbærtærte</h3><p>Tilbud · <b>90 kr.</b></p></div>
  </div>
 </div></section>
@@ -98,17 +119,17 @@ footer{background:var(--ink);color:var(--dough);padding:28px 0;text-align:center
 <section id="billeder"><div class="wrap">
  <h2>Kig ind</h2>
  <div class="gallery">
-  <img src="img/butik.png" alt="Indgangen til Kringlevrideren med logo" loading="lazy">
-  <img src="img/vitrine.png" alt="Vitrine med wienerbrød og kager" loading="lazy">
-  <img src="img/indenfor.png" alt="Bageriet indefra med brød og kager" loading="lazy">
-  <img src="img/disk.png" alt="Disken med brød og kager" loading="lazy">
-  <img src="img/tilbud.png" alt="Skilt med ugens tilbud ved indgangen" loading="lazy">
+  <img src="img/butik.png" alt="Indgangen til Kringlevrideren med logo" width="300" height="225" loading="lazy">
+  <img src="img/vitrine.png" alt="Vitrine med wienerbrød og kager" width="300" height="225" loading="lazy">
+  <img src="img/indenfor.png" alt="Bageriet indefra med brød og kager" width="300" height="225" loading="lazy">
+  <img src="img/disk.png" alt="Disken med brød og kager" width="300" height="225" loading="lazy">
+  <img src="img/tilbud.png" alt="Skilt med ugens tilbud ved indgangen" width="300" height="225" loading="lazy">
  </div>
 </div></section>
 
 <section id="anmeldelser"><div class="wrap">
  <h2>Det siger gæsterne</h2>
- <div class="cards">
+ <div class="cards reviews">
   <blockquote class="card"><p>“De har noget af det bedste morgenbrød på Amager! Priserne er rimelige og personalet for det meste søde.”</p><footer>— Preben L., Google</footer></blockquote>
   <blockquote class="card"><p>“Rigtig solid bager som fortjener højere rating! Gode boller, brød og kager til fornuftige priser, sød betjening.”</p><footer>— Alex S., Google</footer></blockquote>
   <blockquote class="card"><p>“Stort udvalg af brød og kager. Velsmagende og fint præsenteret.”</p><footer>— Lena Athena O., Google</footer></blockquote>
@@ -116,7 +137,7 @@ footer{background:var(--ink);color:var(--dough);padding:28px 0;text-align:center
   <blockquote class="card"><p>“Brødet er ret godt, men kagerne er helt fantastiske, især mango-cheesecake.”</p><footer>— Adam A., Google</footer></blockquote>
   <blockquote class="card"><p>“Har de bedste overskårne med syltetøj.”</p><footer>— Morten Bo P., Google</footer></blockquote>
  </div>
- <p class="meta" style="margin-top:20px">3,9 af 5 · 82 anmeldelser på Google Maps</p>
+ <p class="meta">3,9 af 5 · 82 anmeldelser på Google Maps</p>
 </div></section>
 
 <section id="find"><div class="wrap info">
@@ -127,11 +148,28 @@ footer{background:var(--ink);color:var(--dough);padding:28px 0;text-align:center
    <dt>Åbent</dt><dd>Alle ugens dage kl. 06–16</dd>
    <dt>Telefon</dt><dd><a href="tel:+4532502092">32 50 20 92</a></dd>
   </dl>
-  <p style="margin-top:20px"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=55.6386438,12.6345714">Rutevejledning</a></p>
+  <p class="meta"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=55.6386438,12.6345714">Rutevejledning</a></p>
  </div>
  <iframe title="Kort over Kringlevrideren" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=12.6295%2C55.6366%2C12.6395%2C55.6406&layer=mapnik&marker=55.6386438%2C12.6345714"></iframe>
 </div></section>
 
 <footer>© Kringlevrideren · Skottegården 8, 2770 Kastrup · 32 50 20 92</footer>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Bakery","name":"Kringlevrideren","telephone":"+4532502092",
+ "address":{"@type":"PostalAddress","streetAddress":"Skottegården 8","postalCode":"2770","addressLocality":"Kastrup","addressCountry":"DK"},
+ "geo":{"@type":"GeoCoordinates","latitude":55.6386438,"longitude":12.6345714},
+ "openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"06:00","closes":"16:00"},
+ "priceRange":"1–100 kr.","aggregateRating":{"@type":"AggregateRating","ratingValue":"3.9","reviewCount":"82"}}
+</script>
+<script>
+// Åben/lukket-status og dagens tilbud efter dansk tid
+const parts=Object.fromEntries(new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Copenhagen",weekday:"short",hour:"numeric",hourCycle:"h23"}).formatToParts(new Date()).map(p=>[p.type,p.value]));
+const hour=+parts.hour, day=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(parts.weekday);
+const open=hour>=6&&hour<16, el=document.getElementById("status");
+el.classList.toggle("open",open);
+el.querySelector("span").textContent=open?"Åbent nu · til kl. 16":"Lukket · åbner kl. 06";
+el.hidden=false;
+document.querySelector(`[data-day="${day}"]`)?.classList.add("today");
+</script>
 </body>
 </html>
